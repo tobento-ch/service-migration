@@ -36,7 +36,7 @@ class Migrator implements MigratorInterface
         protected null|ActionsProcessorInterface $actionsProcessor = null,
     ) {
         // get and set all installed migrations.
-		$this->installed = $repository->getMigrations();
+        $this->installed = $repository->getMigrations();
         
         $this->actionsProcessor = $actionsProcessor ?: new ActionsProcessor();
     }
