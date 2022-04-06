@@ -16,6 +16,7 @@ The Migration Service provides a flexible way for handling migrations for PHP ap
             - [Dir Delete](#dir-delete)
             - [Files Copy](#files-copy)
             - [Files Delete](#files-delete)
+            - [File String Replacer](#file-string-replacer)
             - [PDO Exec](#pdo-exec)
         - [Custom Actions](#custom-actions)
         - [Process Actions](#process-actions)
@@ -339,6 +340,32 @@ var_dump($action->getDeletedFiles());
 
 var_dump($action->description());
 // string(37) "Blog configuration files uninstalled."
+```
+
+### File String Replacer
+
+Use the FileStringReplacer::class to replace strings from a file.
+
+```php
+use Tobento\Service\Migration\Action\FileStringReplacer;
+
+$action = new FileStringReplacer(
+    file: 'dir/config/http.php',
+    replace: [
+        '{key1}' => 'value1',
+        '{key2}' => 'value2',
+    ],
+    description: 'Strings replaced.',
+);
+            
+var_dump($action->getFile());
+// string(19) "dir/config/http.php"
+
+var_dump($action->getReplace());
+// array(2) { ["{key1}"]=> string(6) "value1" ["{key2}"]=> string(6) "value2" }
+
+var_dump($action->description());
+// string(17) "Strings replaced."
 ```
 
 ### PDO Exec
