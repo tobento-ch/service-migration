@@ -31,4 +31,11 @@ interface MigrationResultInterface
      * @return ActionsInterface
      */    
     public function actions(): ActionsInterface;
+    
+    /**
+     * Returns true if installed, otherwise false (uninstalled).
+     *
+     * @return bool
+     */
+    public function installed(): bool;
 }

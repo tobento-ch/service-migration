@@ -57,7 +57,7 @@ class Migrator implements MigratorInterface
             
             $this->actionsProcessor()->process($actions);
             
-            return $this->installed(new MigrationResult($migration, $actions));
+            return $this->installed(new MigrationResult($migration, $actions, true));
             
         } catch (ActionFailedException $e) {
 
@@ -86,7 +86,7 @@ class Migrator implements MigratorInterface
             
             $this->actionsProcessor()->process($actions);
             
-            return $this->uninstalled(new MigrationResult($migration, $actions));
+            return $this->uninstalled(new MigrationResult($migration, $actions, false));
             
         } catch (ActionFailedException $e) {
             

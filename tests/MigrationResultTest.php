@@ -27,7 +27,7 @@ class MigrationResultTest extends TestCase
     {
         $migration = new BlogMigration();
         $actions = $migration->install();
-        $result = new MigrationResult($migration, $actions);
+        $result = new MigrationResult($migration, $actions, true);
             
         $this->assertInstanceOf(
             MigrationResultInterface::class,
@@ -39,7 +39,7 @@ class MigrationResultTest extends TestCase
     {
         $migration = new BlogMigration();
         $actions = $migration->install();
-        $result = new MigrationResult($migration, $actions);
+        $result = new MigrationResult($migration, $actions, true);
         
         $this->assertSame(
             $migration,
@@ -51,7 +51,7 @@ class MigrationResultTest extends TestCase
     {
         $migration = new BlogMigration();
         $actions = $migration->install();
-        $result = new MigrationResult($migration, $actions);
+        $result = new MigrationResult($migration, $actions, true);
         
         $this->assertSame(
             $actions,

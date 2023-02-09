@@ -39,7 +39,7 @@ class MigrationResultsTest extends TestCase
     {
         $migration = new BlogMigration();
         $actions = $migration->install();
-        $result = new MigrationResult($migration, $actions);
+        $result = new MigrationResult($migration, $actions, true);
         
         $results = new MigrationResults($result);
             
@@ -57,11 +57,11 @@ class MigrationResultsTest extends TestCase
  
         $migration = new BlogMigration();
         $actions = $migration->install();
-        $result = new MigrationResult($migration, $actions);
+        $result = new MigrationResult($migration, $actions, true);
         
         $shopMigration = new ShopMigration();
         $actions = $shopMigration->install();
-        $shopResult = new MigrationResult($shopMigration, $actions);        
+        $shopResult = new MigrationResult($shopMigration, $actions, true);        
         
         $results->add($result);
         $results->add($shopResult);

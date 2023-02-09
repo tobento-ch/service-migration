@@ -23,10 +23,12 @@ class MigrationResult implements MigrationResultInterface
      *
      * @param MigrationInterface $migration The migration.
      * @param ActionsInterface $actions The actions processed.
+     * @param bool $installed True if installed otherwise false as uninstalled.
      */    
     public function __construct(
         protected MigrationInterface $migration,
         protected ActionsInterface $actions,
+        protected bool $installed,
     ) {}
 
     /**
@@ -47,5 +49,15 @@ class MigrationResult implements MigrationResultInterface
     public function actions(): ActionsInterface
     {
         return $this->actions;
-    }    
+    }
+    
+    /**
+     * Returns true if installed, otherwise false (uninstalled).
+     *
+     * @return bool
+     */
+    public function installed(): bool
+    {
+        return $this->installed;
+    }
 }

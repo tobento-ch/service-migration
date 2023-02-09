@@ -41,7 +41,7 @@ class MigrationJsonFileRepositoryTest extends TestCase
         
         $migration = new BlogMigration();
         $actions = $migration->install();
-        $result = new MigrationResult($migration, $actions);
+        $result = new MigrationResult($migration, $actions, true);
         
         $this->assertSame(
             ['migration' => $migration::class],
@@ -62,7 +62,7 @@ class MigrationJsonFileRepositoryTest extends TestCase
         
         $migration = new BlogMigration();
         $actions = $migration->install();
-        $result = new MigrationResult($migration, $actions);
+        $result = new MigrationResult($migration, $actions, true);
         $repo->store($migration::class, $result);
         
         $this->assertSame(
@@ -89,12 +89,12 @@ class MigrationJsonFileRepositoryTest extends TestCase
         
         $migration = new BlogMigration();
         $actions = $migration->install();
-        $result = new MigrationResult($migration, $actions);
+        $result = new MigrationResult($migration, $actions, true);
         $repo->store($migration::class, $result);
         
         $shopMigration = new ShopMigration();
         $actions = $shopMigration->install();
-        $result = new MigrationResult($shopMigration, $actions);
+        $result = new MigrationResult($shopMigration, $actions, true);
         $repo->store($shopMigration::class, $result);
             
         $this->assertSame(
@@ -111,12 +111,12 @@ class MigrationJsonFileRepositoryTest extends TestCase
         
         $migration = new BlogMigration();
         $actions = $migration->install();
-        $result = new MigrationResult($migration, $actions);
+        $result = new MigrationResult($migration, $actions, true);
         $repo->store($migration::class, $result);
         
         $shopMigration = new ShopMigration();
         $actions = $shopMigration->install();
-        $result = new MigrationResult($shopMigration, $actions);
+        $result = new MigrationResult($shopMigration, $actions, true);
         $repo->store($shopMigration::class, $result);
         
         $this->assertSame(
