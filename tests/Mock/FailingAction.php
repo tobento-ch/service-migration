@@ -53,4 +53,14 @@ class FailingAction implements ActionInterface
     {
         return $this->name;
     }
+    
+    /**
+     * Returns the processed data information.
+     *
+     * @return array<array-key, string>
+     */
+    public function processedDataInfo(): array
+    {
+        return [];
+    }    
 }

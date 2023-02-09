@@ -23,13 +23,20 @@ interface ActionInterface
      *
      * @return void
      * @throws ActionFailedException
-     */    
+     */
     public function process(): void;
     
     /**
      * Returns a description of the action.
      *
      * @return string
-     */    
-    public function description(): string;    
+     */
+    public function description(): string;
+    
+    /**
+     * Returns the processed data information.
+     *
+     * @return array<array-key, string>
+     */
+    public function processedDataInfo(): array;
 }

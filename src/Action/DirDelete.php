@@ -67,6 +67,18 @@ class DirDelete implements ActionInterface
     }
     
     /**
+     * Returns the processed data information.
+     *
+     * @return array<array-key, string>
+     */
+    public function processedDataInfo(): array
+    {
+        return [
+            'dir' => $this->getDir(),
+        ];
+    }
+    
+    /**
      * Get the directory to delete.
      *
      * @return string

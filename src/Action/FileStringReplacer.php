@@ -67,6 +67,20 @@ class FileStringReplacer implements ActionInterface
     }
     
     /**
+     * Returns the processed data information.
+     *
+     * @return array<array-key, string>
+     */
+    public function processedDataInfo(): array
+    {
+        $data = [
+            'file' => $this->getFile(),
+        ];
+        
+        return array_merge($data, $this->getReplace());
+    }
+    
+    /**
      * Get the file.
      *
      * @return string

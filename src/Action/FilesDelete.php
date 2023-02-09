@@ -85,6 +85,16 @@ class FilesDelete implements ActionInterface
     }
     
     /**
+     * Returns the processed data information.
+     *
+     * @return array<array-key, string>
+     */
+    public function processedDataInfo(): array
+    {
+        return $this->getDeletedFiles();
+    }
+    
+    /**
      * Get the files.
      *
      * @return array<mixed>

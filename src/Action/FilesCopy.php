@@ -97,6 +97,16 @@ class FilesCopy implements ActionInterface
     }
     
     /**
+     * Returns the processed data information.
+     *
+     * @return array<array-key, string>
+     */
+    public function processedDataInfo(): array
+    {
+        return $this->getCopiedFiles();
+    }
+    
+    /**
      * Get the files.
      *
      * @return array<mixed>
