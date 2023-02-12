@@ -44,7 +44,49 @@ class Actions implements ActionsInterface
     {
         $this->actions[] = $action;
         return $this;
-    }    
+    }
+    
+    /**
+     * Returns a new instance with the filtered actions.
+     *
+     * @param callable $callback
+     * @return static
+     */
+    public function filter(callable $callback): static
+    {
+        $new = clone $this;
+        $new->actions = array_filter($this->actions, $callback);
+        return $new;
+    }
+    
+    /**
+     * Returns the first action of null if none.
+     *
+     * @return null|ActionInterface
+     */
+    public function first(): null|ActionInterface
+    {
+        $key = array_key_first($this->actions);
+        
+        if (is_null($key)) {
+            return null;
+        }
+        
+        return $this->actions[$key];    
+    }
+    
+    /**
+     * Returns the action by name or null if not exists.
+     *
+     * @param string $name
+     * @return null|ActionInterface
+     */
+    public function get(string $name): null|ActionInterface
+    {
+        return $this->filter(
+            fn(ActionInterface $a) => $a->name() === $name
+        )->first();
+    }
 
     /**
      * If has any actions.

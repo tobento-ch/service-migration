@@ -15,6 +15,7 @@ namespace Tobento\Service\Migration\Test;
 
 use PHPUnit\Framework\TestCase;
 use Tobento\Service\Migration\ActionsInterface;
+use Tobento\Service\Migration\ActionInterface;
 use Tobento\Service\Migration\Actions;
 use Tobento\Service\Migration\Test\Mock\Action;
 
@@ -45,6 +46,50 @@ class ActionsTest extends TestCase
         );       
     }
     
+    public function testFilterMethod()
+    {
+        $actions = new Actions(
+            new Action('config'),
+            new Action('db'),
+        );
+        
+        $actionsNew = $actions->filter(
+            fn(ActionInterface $a): bool => $a->name() === 'config'
+        );
+        
+        $this->assertFalse($actions === $actionsNew);
+        $this->assertSame(1, count($actionsNew->all()));
+        $this->assertSame(2, count($actions->all()));
+    }
+    
+    public function testFirstMethod()
+    {
+        $actions = new Actions(
+            new Action('config'),
+            new Action('db'),
+        );
+        
+        $this->assertInstanceof(ActionInterface::class, $actions->first());
+        
+        $actions = new Actions();
+        
+        $this->assertSame(null, $actions->first());
+    }
+    
+    public function testGetMethod()
+    {
+        $actions = new Actions(
+            new Action('config'),
+            new Action('db'),
+        );
+        
+        $this->assertSame('db', $actions->get(name: 'db')?->name());
+        
+        $actions = new Actions();
+        
+        $this->assertSame(null, $actions->get(name: 'db'));
+    }
+    
     public function testAllMethod()
     {        
         $action = new Action('config install');
@@ -70,5 +115,5 @@ class ActionsTest extends TestCase
         $this->assertTrue(
             (new Actions())->empty()
         );        
-    }    
+    }
 }

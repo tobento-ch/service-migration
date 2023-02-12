@@ -24,7 +24,22 @@ interface ActionsInterface
      * @param ActionInterface $action
      * @return static $this
      */    
-    public function add(ActionInterface $action): static;   
+    public function add(ActionInterface $action): static;
+    
+    /**
+     * Returns a new instance with the filtered actions.
+     *
+     * @param callable $callback
+     * @return static
+     */
+    public function filter(callable $callback): static;
+    
+    /**
+     * Returns the first action of null if none.
+     *
+     * @return null|ActionInterface
+     */
+    public function first(): null|ActionInterface;
 
     /**
      * If has any actions.
