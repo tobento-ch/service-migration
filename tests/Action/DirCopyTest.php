@@ -102,6 +102,25 @@ class DirCopyTest extends TestCase
         );
     }
     
+    public function testProcessedDataInfoMethod()
+    {
+        $action = new DirCopy(
+            dir: __DIR__.'/../src/',
+            destDir: __DIR__.'/../src-tmp/',
+            description: 'Dir installed.',
+        );
+        
+        $action->process();
+        
+        $this->assertSame(
+            [
+                'dir' => __DIR__.'/../src/',
+                'destDir' => __DIR__.'/../src-tmp/',
+            ],
+            $action->processedDataInfo()
+        );
+    }
+    
     public function testGetDirMethod()
     {
         $action = new DirCopy(

@@ -93,7 +93,31 @@ class FileStringReplacerTest extends TestCase
             'Replacement done.',
             $action->description()
         );
-    }    
+    }
+    
+    public function testProcessedDataInfoMethod()
+    {
+        $file = new File(__DIR__.'/../src/config/http.php');
+        
+        $copiedFile = $file->copy(__DIR__.'/../src/replace-tmp/http.php');
+        
+        $action = new FileStringReplacer(
+            file: $copiedFile->getFile(),
+            replace: [
+                '{key1}' => 'value1',
+            ],
+        );
+        
+        $action->process();
+        
+        $this->assertSame(
+            [
+                'file' => __DIR__.'/../src/replace-tmp/http.php',
+                '{key1}' => 'value1',
+            ],
+            $action->processedDataInfo()
+        );
+    }
     
     public function testGetFileMethod()
     {

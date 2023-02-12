@@ -119,7 +119,27 @@ class FilesCopyTest extends TestCase
             'Blog configuration files installed.',
             $action->description()
         );
-    }    
+    }
+    
+    public function testProcessedDataInfoMethod()
+    {
+        $action = new FilesCopy(
+            files: [
+                __DIR__.'/../src-tmp/config/' => [
+                    __DIR__.'/../src/config/blog.php',
+                ],
+            ],
+        );
+        
+        $action->process();
+        
+        $this->assertSame(
+            [
+                __DIR__.'/../src-tmp/config/blog.php',
+            ],
+            $action->processedDataInfo()
+        );
+    }
     
     public function testGetFilesMethod()
     {

@@ -123,7 +123,30 @@ class FilesDeleteTest extends TestCase
             'Blog configuration files uninstalled.',
             $action->description()
         );
-    }    
+    }
+    
+    public function testProcessedDataInfoMethod()
+    {
+        $file = new File(__DIR__.'/../src/config/blog.php');
+        $copiedFile = $file->copy(__DIR__.'/../src-tmp/config/blog.php');
+        
+        $action = new FilesDelete(
+            files: [
+                __DIR__.'/../src-tmp/config/' => [
+                    'blog.php',
+                ],
+            ],
+        );
+        
+        $action->process();
+        
+        $this->assertSame(
+            [
+                __DIR__.'/../src-tmp/config/blog.php',
+            ],
+            $action->processedDataInfo()
+        );
+    }
     
     public function testGetFilesMethod()
     {

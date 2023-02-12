@@ -85,7 +85,23 @@ class DirDeleteTest extends TestCase
             'Dir uninstalled.',
             $action->description()
         );
-    }    
+    }
+    
+    public function testProcessedDataInfoMethod()
+    {
+        $action = new DirDelete(
+            dir: __DIR__.'/../src/dir-to-delete/',
+        );
+        
+        $action->process();
+        
+        $this->assertSame(
+            [
+                'dir' => __DIR__.'/../src/dir-to-delete/',
+            ],
+            $action->processedDataInfo()
+        );
+    }
     
     public function testGetDirMethod()
     {
