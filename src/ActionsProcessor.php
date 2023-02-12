@@ -27,7 +27,7 @@ class ActionsProcessor implements ActionsProcessorInterface
      */    
     public function process(ActionsInterface $actions): void
     {
-        foreach($actions->all() as $action)
+        foreach($actions as $action)
         {
             $action->process();
         }
