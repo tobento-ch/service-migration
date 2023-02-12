@@ -58,6 +58,22 @@ class DirDeleteTest extends TestCase
         );
     }
     
+    public function testNameMethod()
+    {
+        $action = new DirDelete(
+            dir: __DIR__.'/../src/dir-to-delete/',
+        );
+        
+        $this->assertSame(DirDelete::class, $action->name());
+        
+        $action = new DirDelete(
+            dir: __DIR__.'/../src/dir-to-delete/',
+            name: 'foo',
+        );
+        
+        $this->assertSame('foo', $action->name());        
+    }
+    
     public function testDescriptionMethod()
     {
         $action = new DirDelete(

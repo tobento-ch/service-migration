@@ -24,7 +24,7 @@ class Action implements ActionInterface
     /**
      * Create a new Action
      *
-     * @param string $name,
+     * @param string $name
      */    
     public function __construct(
         protected string $name,
@@ -39,6 +39,16 @@ class Action implements ActionInterface
     public function process(): void
     {
         //
+    }
+    
+    /**
+     * Returns a name of the action.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this->name;
     }
 
     /**

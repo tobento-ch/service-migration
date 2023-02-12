@@ -69,6 +69,24 @@ class DirCopyTest extends TestCase
         
         $action->process();
     }
+
+    public function testNameMethod()
+    {
+        $action = new DirCopy(
+            dir: __DIR__.'/../src/',
+            destDir: __DIR__.'/../src-tmp/',
+        );
+        
+        $this->assertSame(DirCopy::class, $action->name());
+        
+        $action = new DirCopy(
+            dir: __DIR__.'/../src/',
+            destDir: __DIR__.'/../src-tmp/',
+            name: 'foo',
+        );
+        
+        $this->assertSame('foo', $action->name());        
+    }
     
     public function testDescriptionMethod()
     {
@@ -82,7 +100,7 @@ class DirCopyTest extends TestCase
             'Dir installed.',
             $action->description()
         );
-    }    
+    }
     
     public function testGetDirMethod()
     {

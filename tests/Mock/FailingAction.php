@@ -43,6 +43,16 @@ class FailingAction implements ActionInterface
             'Action ['.$this->name.'] failed!'
         );
     }
+    
+    /**
+     * Returns a name of the action.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this->name;
+    }
 
     /**
      * Returns a description of the action.

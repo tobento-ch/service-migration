@@ -27,10 +27,12 @@ class DirDelete implements ActionInterface
      * Create a new DirDelete.
      *
      * @param string $dir The directory to delete.
+     * @param null|string $name A name of the action.
      * @param string $description A description of the action.
      */    
     public function __construct(
         protected string $dir,
+        protected null|string $name = null,
         protected string $description = '',
     ) {}
         
@@ -54,6 +56,16 @@ class DirDelete implements ActionInterface
                 'Deleting ['.$this->dir.'] failed!'
             );      
         }
+    }
+    
+    /**
+     * Returns a name of the action.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this->name ?: $this::class;
     }
  
     /**

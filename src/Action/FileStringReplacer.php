@@ -27,11 +27,13 @@ class FileStringReplacer implements ActionInterface
      *
      * @param string $file The file to replace strings.
      * @param array $replace
+     * @param null|string $name A name of the action.
      * @param string $description A description of the action.
      */
     public function __construct(
         protected string $file,
         protected array $replace,
+        protected null|string $name = null,
         protected string $description = '',
     ) {}
         
@@ -54,6 +56,16 @@ class FileStringReplacer implements ActionInterface
                 $search, $replace, $file->getContent()
             ));
         }
+    }
+    
+    /**
+     * Returns a name of the action.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this->name ?: $this::class;
     }
 
     /**

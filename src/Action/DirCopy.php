@@ -28,11 +28,13 @@ class DirCopy implements ActionInterface
      *
      * @param string $dir The directory to copy.
      * @param string $destDir The destination directory.
+     * @param null|string $name A name of the action.
      * @param string $description A description of the action.
      */    
     public function __construct(
         protected string $dir,
         protected string $destDir,
+        protected null|string $name = null,
         protected string $description = '',
     ) {}
         
@@ -54,6 +56,16 @@ class DirCopy implements ActionInterface
                 'Copying ['.$this->dir.'] failed!'
             );      
         }
+    }
+    
+    /**
+     * Returns a name of the action.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this->name ?: $this::class;
     }
 
     /**

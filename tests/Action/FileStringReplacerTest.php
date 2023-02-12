@@ -63,6 +63,24 @@ class FileStringReplacerTest extends TestCase
         $copiedFile->delete();
     }
     
+    public function testNameMethod()
+    {
+        $action = new FileStringReplacer(
+            file: __DIR__.'/../src/config/http.php',
+            replace: [],
+        );
+        
+        $this->assertSame(FileStringReplacer::class, $action->name());
+        
+        $action = new FileStringReplacer(
+            file: __DIR__.'/../src/config/http.php',
+            replace: [],
+            name: 'foo',
+        );
+        
+        $this->assertSame('foo', $action->name());        
+    }
+    
     public function testDescriptionMethod()
     {
         $action = new FileStringReplacer(

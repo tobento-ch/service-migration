@@ -84,6 +84,30 @@ class FilesDeleteTest extends TestCase
         );
     }
     
+    public function testNameMethod()
+    {
+        $action = new FilesDelete(
+            files: [
+                __DIR__.'/../src-tmp/config/' => [
+                    'blog.php',
+                ],
+            ], 
+        );
+        
+        $this->assertSame(FilesDelete::class, $action->name());
+        
+        $action = new FilesDelete(
+            files: [
+                __DIR__.'/../src-tmp/config/' => [
+                    'blog.php',
+                ],
+            ], 
+            name: 'foo',
+        );
+        
+        $this->assertSame('foo', $action->name());        
+    }
+    
     public function testDescriptionMethod()
     {
         $action = new FilesDelete(

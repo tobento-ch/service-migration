@@ -28,11 +28,13 @@ class PdoExec implements ActionInterface
      *
      * @param PDO $pdo
      * @param array<mixed> $statements
+     * @param null|string $name A name of the action.
      * @param string $description A description of the action.
      */    
     public function __construct(
         protected PDO $pdo,
         protected array $statements,
+        protected null|string $name = null,
         protected string $description = '',
     ) {}
         
@@ -73,6 +75,16 @@ class PdoExec implements ActionInterface
                 $e
             );
         }
+    }
+    
+    /**
+     * Returns a name of the action.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this->name ?: $this::class;
     }
  
     /**

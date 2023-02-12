@@ -80,6 +80,30 @@ class FilesCopyTest extends TestCase
         $action->process();
     }
     
+    public function testNameMethod()
+    {
+        $action = new FilesCopy(
+            files: [
+                __DIR__.'/../src-tmp/config/' => [
+                    __DIR__.'/../src/config/blog-not-exist.php',
+                ],
+            ], 
+        );
+        
+        $this->assertSame(FilesCopy::class, $action->name());
+        
+        $action = new FilesCopy(
+            files: [
+                __DIR__.'/../src-tmp/config/' => [
+                    __DIR__.'/../src/config/blog-not-exist.php',
+                ],
+            ], 
+            name: 'foo',
+        );
+        
+        $this->assertSame('foo', $action->name());        
+    }
+    
     public function testDescriptionMethod()
     {
         $action = new FilesCopy(

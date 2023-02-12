@@ -32,10 +32,12 @@ class FilesCopy implements ActionInterface
      * Create a new FilesAction.
      *
      * @param array<mixed> $files The files ['src/destination/dir/' => ['src/file.jpg']]
+     * @param null|string $name A name of the action.
      * @param string $description A description of the action.
      */    
     public function __construct(
         protected array $files = [],
+        protected null|string $name = null,
         protected string $description = '',
     ) {}
         
@@ -84,6 +86,16 @@ class FilesCopy implements ActionInterface
                 $this->copiedFiles[] = $copiedFile->getFile();
             }
         }
+    }
+    
+    /**
+     * Returns a name of the action.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this->name ?: $this::class;
     }
     
     /**

@@ -25,6 +25,13 @@ interface ActionInterface
      * @throws ActionFailedException
      */
     public function process(): void;
+
+    /**
+     * Returns a name of the action.
+     *
+     * @return string
+     */
+    public function name(): string;
     
     /**
      * Returns a description of the action.
