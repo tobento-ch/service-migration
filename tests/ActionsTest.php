@@ -116,4 +116,16 @@ class ActionsTest extends TestCase
             (new Actions())->empty()
         );        
     }
+    
+    public function testIteration()
+    {
+        $actions = new Actions(
+            new Action('config'),
+            new Action('db'),
+        );
+        
+        foreach($actions as $action) {
+            $this->assertInstanceof(ActionInterface::class, $action);
+        }
+    }
 }

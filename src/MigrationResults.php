@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Tobento\Service\Migration;
 
+use Generator;
+
 /**
  * MigrationResults
  */
@@ -54,5 +56,17 @@ class MigrationResults implements MigrationResultsInterface
     public function all(): array
     {    
         return $this->results;
-    }    
+    }
+    
+    /**
+     * Returns an iterator for the results.
+     *
+     * @return Generator
+     */
+    public function getIterator(): Generator
+    {
+        foreach($this->results as $key => $result) {
+            yield $key => $result;
+        }
+    }
 }

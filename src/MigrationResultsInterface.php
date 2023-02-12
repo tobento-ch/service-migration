@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace Tobento\Service\Migration;
 
+use IteratorAggregate;
+
 /**
  * MigrationResultsInterface
  */
-interface MigrationResultsInterface
+interface MigrationResultsInterface extends IteratorAggregate
 {
     /**
      * Add a migration result.

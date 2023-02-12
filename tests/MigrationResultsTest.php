@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 use Tobento\Service\Migration\MigrationResults;
 use Tobento\Service\Migration\MigrationResultsInterface;
 use Tobento\Service\Migration\MigrationResult;
+use Tobento\Service\Migration\MigrationResultInterface;
 use Tobento\Service\Migration\Test\Mock\BlogMigration;
 use Tobento\Service\Migration\Test\Mock\ShopMigration;
 
@@ -83,5 +84,20 @@ class MigrationResultsTest extends TestCase
             [],
             $results->all()
         ); 
-    }     
+    }
+    
+    public function testIteration()
+    {
+        $results = new MigrationResults();
+ 
+        $migration = new BlogMigration();
+        $actions = $migration->install();
+        $migrationResult = new MigrationResult($migration, $actions, true);      
+        
+        $results->add($migrationResult);
+        
+        foreach($results as $result) {
+            $this->assertInstanceof(MigrationResultInterface::class, $result);
+        }
+    }
 }

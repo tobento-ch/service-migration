@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Tobento\Service\Migration;
 
+use Generator;
+
 /**
  * Actions
  */
@@ -106,5 +108,17 @@ class Actions implements ActionsInterface
     public function all(): array
     {
         return $this->actions;
-    }    
+    }
+
+    /**
+     * Returns an iterator for the actions.
+     *
+     * @return Generator
+     */
+    public function getIterator(): Generator
+    {
+        foreach($this->actions as $key => $action) {
+            yield $key => $action;
+        }
+    }
 }

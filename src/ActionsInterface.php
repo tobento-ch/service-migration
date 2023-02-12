@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace Tobento\Service\Migration;
 
+use IteratorAggregate;
+
 /**
  * ActionsInterface.
  */
-interface ActionsInterface
+interface ActionsInterface extends IteratorAggregate
 {
     /**
      * Add an action.
