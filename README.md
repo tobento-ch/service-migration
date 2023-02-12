@@ -256,6 +256,7 @@ use Tobento\Service\Migration\Action\DirCopy;
 $action = new DirCopy(
     dir: 'dir/blog/views/',
     destDir: 'dir/to/store/views/blog/',
+    name: 'A unique name', // or null
     description: 'Blog view files installed.',
 );
 
@@ -278,6 +279,7 @@ use Tobento\Service\Migration\Action\DirDelete;
 
 $action = new DirDelete(
     dir: 'dir/to/store/views/blog/',
+    name: 'A unique name', // or null
     description: 'Blog view files uninstalled.',
 );
 
@@ -300,7 +302,8 @@ $action = new FilesCopy(
         'dir/to/store/config/' => [
             'dir/blog/config/blog.php',
         ],         
-    ], 
+    ],
+    name: 'A unique name', // or null
     description: 'Blog configuration files installed.',
 );
 
@@ -328,6 +331,7 @@ $action = new FilesDelete(
             'blog.php',
         ],
     ],
+    name: 'A unique name', // or null
     description: 'Blog configuration files uninstalled.',
 );
             
@@ -355,6 +359,7 @@ $action = new FileStringReplacer(
         '{key1}' => 'value1',
         '{key2}' => 'value2',
     ],
+    name: 'A unique name', // or null
     description: 'Strings replaced.',
 );
             
@@ -384,6 +389,7 @@ $action = new PdoExec(
             PRIMARY KEY (id)
         ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=0",        
     ],
+    name: 'A unique name', // or null
     description: 'Blog database tables installed.',
 );
             
@@ -413,6 +419,16 @@ class CustomAction implements ActionInterface
     public function process(): void
     {
         // process the action
+    }
+    
+    /**
+     * Returns a name of the action.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this::class;
     }
 
     /**
@@ -596,7 +612,7 @@ var_dump($result->actions() instanceof ActionsInterface);
 // bool(true)
 
 // You might want to iterate over the actions.
-foreach($result->actions()->all() as $action)
+foreach($result->actions() as $action)
 {
     $description = $action->description();
 }
