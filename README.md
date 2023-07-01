@@ -18,6 +18,7 @@ The Migration Service provides a flexible way for handling migrations for PHP ap
             - [Files Delete](#files-delete)
             - [File String Replacer](#file-string-replacer)
             - [PDO Exec](#pdo-exec)
+            - [Null](#null)
         - [Custom Actions](#custom-actions)
         - [Process Actions](#process-actions)
     - [Migrator](#migrator)
@@ -398,6 +399,19 @@ var_dump($action->getStatements());
 
 var_dump($action->description());
 // string(31) "Blog database tables installed."
+```
+
+### Null
+
+The ```NullAction::class``` does nothing at all, which might be useful in some cases.
+
+```php
+use Tobento\Service\Migration\Action\NullAction;
+
+$action = new NullAction(
+    name: 'A unique name', // or null
+    description: 'Some description.', // (optional)
+);
 ```
 
 ### Custom Actions
