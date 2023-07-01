@@ -19,6 +19,7 @@ The Migration Service provides a flexible way for handling migrations for PHP ap
             - [File String Replacer](#file-string-replacer)
             - [PDO Exec](#pdo-exec)
             - [Null](#null)
+            - [Fail](#fail)
         - [Custom Actions](#custom-actions)
         - [Process Actions](#process-actions)
     - [Migrator](#migrator)
@@ -412,6 +413,24 @@ $action = new NullAction(
     name: 'A unique name', // or null
     description: 'Some description.', // (optional)
 );
+```
+
+### Fail
+
+The ```Fail::class``` does always fail on action process, throwing a ```ActionFailedException::class```, which might be useful in some cases.
+
+```php
+use Tobento\Service\Migration\Action\Fail;
+use Tobento\Service\Migration\ActionFailedException;
+
+$action = new Fail(
+    failMessage: 'message',
+    name: 'A unique name', // or null
+    description: 'Some description.', // (optional)
+);
+
+$action->process();
+// throws ActionFailedException with the specified fail message.
 ```
 
 ### Custom Actions
