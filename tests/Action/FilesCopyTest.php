@@ -135,7 +135,7 @@ class FilesCopyTest extends TestCase
         
         $this->assertSame(
             [
-                __DIR__.'/../src-tmp/config/blog.php',
+                'copied: '.__DIR__.'/../src-tmp/config/blog.php',
             ],
             $action->processedDataInfo()
         );
@@ -184,6 +184,36 @@ class FilesCopyTest extends TestCase
         
         $file = new File(__DIR__.'/../src-tmp/config/blog.php');
 
+        $file->delete();
+    }
+    
+    public function testProcessWithoutOverwritingFiles()
+    {
+        $file = new File(__DIR__.'/../src/config/blog.php');
+        $file->copy(__DIR__.'/../src-tmp/config/blog.php');
+        
+        $action = new FilesCopy(
+            files: [
+                __DIR__.'/../src-tmp/config/' => [
+                    __DIR__.'/../src/config/blog.php',
+                ],
+            ],
+            overwrite: false,
+        );
+        
+        $action->process();
+        
+        $this->assertSame(
+            [__DIR__.'/../src/config/blog.php'],
+            $action->getSkippedFiles()
+        );
+        
+        $this->assertSame(
+            ['skipped: '.__DIR__.'/../src/config/blog.php'],
+            $action->processedDataInfo()
+        );
+        
+        $file = new File(__DIR__.'/../src-tmp/config/blog.php');
         $file->delete();
     }
 }
