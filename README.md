@@ -12,14 +12,15 @@ The Migration Service provides a flexible way for handling migrations for PHP ap
 	- [Migration](#migration)
         - [Create Migration](#create-migration)
         - [Actions](#actions)
+            - [Callable](#callable)
             - [Dir Copy](#dir-copy)
             - [Dir Delete](#dir-delete)
+            - [Fail](#fail)
             - [Files Copy](#files-copy)
             - [Files Delete](#files-delete)
             - [File String Replacer](#file-string-replacer)
-            - [PDO Exec](#pdo-exec)
             - [Null](#null)
-            - [Fail](#fail)
+            - [PDO Exec](#pdo-exec)
         - [Custom Actions](#custom-actions)
         - [Process Actions](#process-actions)
     - [Migrator](#migrator)
@@ -248,6 +249,36 @@ class BlogMigration implements MigrationInterface
 
 ### Actions
 
+### Callable
+
+The ```CallableAction::class``` calls the specified callable on process.
+
+```php
+use Tobento\Service\Migration\Action\CallableAction;
+use Tobento\Service\Migration\ActionFailedException;
+
+$action = new CallableAction(
+    callable: function ($name) {
+        // do something on process
+    },
+    // you may set parameters passed to the callable:
+    parameters: ['name' => 'value'],
+    name: 'A unique name', // or null
+    description: 'Some description.', // (optional)
+);
+
+// Get the callable:
+var_dump(is_callable($action->getCallable()));
+// bool(true)
+
+// Get the parameters:
+var_dump($action->getParameters());
+// array(1) { ["name"]=> string(5) "value" }
+
+var_dump($action->description());
+// string(17) "Some description."
+```
+
 ### Dir Copy
 
 Use the DirCopy::class action to copy a directory to another destination.
@@ -292,6 +323,24 @@ var_dump($action->description());
 // string(28) "Blog view files uninstalled."
 ```
 
+### Fail
+
+The ```Fail::class``` does always fail on action process, throwing a ```ActionFailedException::class```, which might be useful in some cases.
+
+```php
+use Tobento\Service\Migration\Action\Fail;
+use Tobento\Service\Migration\ActionFailedException;
+
+$action = new Fail(
+    failMessage: 'message',
+    name: 'A unique name', // or null
+    description: 'Some description.', // (optional)
+);
+
+$action->process();
+// throws ActionFailedException with the specified fail message.
+```
+
 ### Files Copy
 
 Use the FilesCopy::class action to copy files to another directory.
@@ -305,6 +354,7 @@ $action = new FilesCopy(
             'dir/blog/config/blog.php',
         ],         
     ],
+    overwrite: true, // if to overwrite existing files (default true)
     name: 'A unique name', // or null
     description: 'Blog configuration files installed.',
 );
@@ -314,6 +364,10 @@ var_dump($action->getFiles());
 
 // only available after processing the action.
 var_dump($action->getCopiedFiles());
+// array(0) { }
+
+// only available after processing the action.
+var_dump($action->getSkippedFiles());
 // array(0) { }
 
 var_dump($action->description());
@@ -375,6 +429,19 @@ var_dump($action->description());
 // string(17) "Strings replaced."
 ```
 
+### Null
+
+The ```NullAction::class``` does nothing at all, which might be useful in some cases.
+
+```php
+use Tobento\Service\Migration\Action\NullAction;
+
+$action = new NullAction(
+    name: 'A unique name', // or null
+    description: 'Some description.', // (optional)
+);
+```
+
 ### PDO Exec
 
 Use the PdoExec::class to execute pdo statements.
@@ -400,37 +467,6 @@ var_dump($action->getStatements());
 
 var_dump($action->description());
 // string(31) "Blog database tables installed."
-```
-
-### Null
-
-The ```NullAction::class``` does nothing at all, which might be useful in some cases.
-
-```php
-use Tobento\Service\Migration\Action\NullAction;
-
-$action = new NullAction(
-    name: 'A unique name', // or null
-    description: 'Some description.', // (optional)
-);
-```
-
-### Fail
-
-The ```Fail::class``` does always fail on action process, throwing a ```ActionFailedException::class```, which might be useful in some cases.
-
-```php
-use Tobento\Service\Migration\Action\Fail;
-use Tobento\Service\Migration\ActionFailedException;
-
-$action = new Fail(
-    failMessage: 'message',
-    name: 'A unique name', // or null
-    description: 'Some description.', // (optional)
-);
-
-$action->process();
-// throws ActionFailedException with the specified fail message.
 ```
 
 ### Custom Actions
