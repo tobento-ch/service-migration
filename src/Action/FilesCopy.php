@@ -25,18 +25,25 @@ class FilesCopy implements ActionInterface
 {    
     /**
      * @var array<int, string> The copied files.
-     */    
+     */
     protected array $copiedFiles = [];
+    
+    /**
+     * @var array<int, string> The skipped files.
+     */
+    protected array $skippedFiles = [];
     
     /**
      * Create a new FilesAction.
      *
      * @param array<mixed> $files The files ['src/destination/dir/' => ['src/file.jpg']]
+     * @param bool $overwrite If to overwrite existing files.
      * @param null|string $name A name of the action.
      * @param string $description A description of the action.
      */    
     public function __construct(
         protected array $files = [],
+        protected bool $overwrite = true,
         protected null|string $name = null,
         protected string $description = '',
     ) {}
@@ -70,13 +77,20 @@ class FilesCopy implements ActionInterface
             foreach($files as $file)
             {
                 $file = new File($file);
-
+                
                 $destination = $destDir.$file->getBasename();
+                
+                if (
+                    ! $this->overwrite
+                    && (new File($destination))->isFile()
+                ) {
+                    $this->skippedFiles[] = $file->getFile();
+                    continue;
+                }
                 
                 $copiedFile = $file->copy($destination);
                     
-                if (is_null($copiedFile))
-                {
+                if (is_null($copiedFile)) {
                     throw new ActionFailedException(
                         $this,
                         'Copying file ['.$file->getFile().'] to ['.$destDir.'] failed!'
@@ -115,7 +129,17 @@ class FilesCopy implements ActionInterface
      */
     public function processedDataInfo(): array
     {
-        return $this->getCopiedFiles();
+        $files = [];
+        
+        foreach($this->getCopiedFiles() as $copiedFile) {
+            $files[] = 'copied: '.$copiedFile;
+        }
+        
+        foreach($this->getSkippedFiles() as $skippedFile) {
+            $files[] = 'skipped: '.$skippedFile;
+        }
+        
+        return $files;
     }
     
     /**
@@ -136,5 +160,15 @@ class FilesCopy implements ActionInterface
     public function getCopiedFiles(): array
     {
         return $this->copiedFiles; 
+    }
+    
+    /**
+     * Get the skipped files.
+     *
+     * @return array<int, string>
+     */    
+    public function getSkippedFiles(): array
+    {
+        return $this->skippedFiles; 
     }
 }
