@@ -265,6 +265,7 @@ $action = new CallableAction(
     parameters: ['name' => 'value'],
     name: 'A unique name', // or null
     description: 'Some description.', // (optional)
+    type: 'keyword', // (optional)
 );
 
 // Get the callable:
@@ -277,6 +278,9 @@ var_dump($action->getParameters());
 
 var_dump($action->description());
 // string(17) "Some description."
+
+var_dump($action->type());
+// string(7) "keyword"
 ```
 
 ### Dir Copy
@@ -291,6 +295,7 @@ $action = new DirCopy(
     destDir: 'dir/to/store/views/blog/',
     name: 'A unique name', // or null
     description: 'Blog view files installed.',
+    type: 'keyword', // (optional)
 );
 
 var_dump($action->getDir());
@@ -301,6 +306,9 @@ var_dump($action->getDestDir());
 
 var_dump($action->description());
 // string(26) "Blog view files installed."
+
+var_dump($action->type());
+// string(7) "keyword"
 ```
 
 ### Dir Delete
@@ -314,6 +322,7 @@ $action = new DirDelete(
     dir: 'dir/to/store/views/blog/',
     name: 'A unique name', // or null
     description: 'Blog view files uninstalled.',
+    type: 'keyword', // (optional)
 );
 
 var_dump($action->getDir());
@@ -321,6 +330,9 @@ var_dump($action->getDir());
 
 var_dump($action->description());
 // string(28) "Blog view files uninstalled."
+
+var_dump($action->type());
+// string(7) "keyword"
 ```
 
 ### Fail
@@ -335,6 +347,7 @@ $action = new Fail(
     failMessage: 'message',
     name: 'A unique name', // or null
     description: 'Some description.', // (optional)
+    type: 'keyword', // (optional)
 );
 
 $action->process();
@@ -357,6 +370,7 @@ $action = new FilesCopy(
     overwrite: true, // if to overwrite existing files (default true)
     name: 'A unique name', // or null
     description: 'Blog configuration files installed.',
+    type: 'keyword', // (optional)
 );
 
 var_dump($action->getFiles());
@@ -372,6 +386,9 @@ var_dump($action->getSkippedFiles());
 
 var_dump($action->description());
 // string(35) "Blog configuration files installed."
+
+var_dump($action->type());
+// string(7) "keyword"
 ```
 
 ### Files Delete
@@ -389,6 +406,7 @@ $action = new FilesDelete(
     ],
     name: 'A unique name', // or null
     description: 'Blog configuration files uninstalled.',
+    type: 'keyword', // (optional)
 );
             
 var_dump($action->getFiles());
@@ -400,6 +418,9 @@ var_dump($action->getDeletedFiles());
 
 var_dump($action->description());
 // string(37) "Blog configuration files uninstalled."
+
+var_dump($action->type());
+// string(7) "keyword"
 ```
 
 ### File String Replacer
@@ -417,6 +438,7 @@ $action = new FileStringReplacer(
     ],
     name: 'A unique name', // or null
     description: 'Strings replaced.',
+    type: 'keyword', // (optional)
 );
             
 var_dump($action->getFile());
@@ -427,6 +449,9 @@ var_dump($action->getReplace());
 
 var_dump($action->description());
 // string(17) "Strings replaced."
+
+var_dump($action->type());
+// string(7) "keyword"
 ```
 
 ### Null
@@ -439,6 +464,7 @@ use Tobento\Service\Migration\Action\NullAction;
 $action = new NullAction(
     name: 'A unique name', // or null
     description: 'Some description.', // (optional)
+    type: 'keyword', // (optional)
 );
 ```
 
@@ -460,6 +486,7 @@ $action = new PdoExec(
     ],
     name: 'A unique name', // or null
     description: 'Blog database tables installed.',
+    type: 'keyword', // (optional)
 );
             
 var_dump($action->getStatements());
@@ -467,6 +494,9 @@ var_dump($action->getStatements());
 
 var_dump($action->description());
 // string(31) "Blog database tables installed."
+
+var_dump($action->type());
+// string(7) "keyword"
 ```
 
 ### Custom Actions
@@ -508,6 +538,16 @@ class CustomAction implements ActionInterface
     public function description(): string
     {
         return 'Action Description';
+    }
+    
+    /**
+     * Returns the type of the action.
+     *
+     * @return string
+     */
+    public function type(): string
+    {
+        return 'keyword';
     }
     
     /**
