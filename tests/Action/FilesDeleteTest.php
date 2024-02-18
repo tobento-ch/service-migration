@@ -125,6 +125,23 @@ class FilesDeleteTest extends TestCase
         );
     }
     
+    public function testTypeMethod()
+    {
+        $action = new FilesDelete(
+            files: [
+                __DIR__.'/../src-tmp/config/' => [
+                    'blog.php',
+                ],
+            ], 
+            type: 'foo',
+        );
+        
+        $this->assertSame(
+            'foo',
+            $action->type()
+        );
+    }
+    
     public function testProcessedDataInfoMethod()
     {
         $file = new File(__DIR__.'/../src/config/blog.php');

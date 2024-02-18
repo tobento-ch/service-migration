@@ -102,6 +102,20 @@ class DirCopyTest extends TestCase
         );
     }
     
+    public function testTypeMethod()
+    {
+        $action = new DirCopy(
+            dir: __DIR__.'/../src/',
+            destDir: __DIR__.'/../src-tmp/',
+            type: 'foo',
+        );
+        
+        $this->assertSame(
+            'foo',
+            $action->type()
+        );
+    }
+    
     public function testProcessedDataInfoMethod()
     {
         $action = new DirCopy(

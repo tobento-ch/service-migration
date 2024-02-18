@@ -54,6 +54,13 @@ class NullActionTest extends TestCase
         $this->assertSame('foo', (new NullAction(description: 'foo'))->description());
     }
     
+    public function testTypeMethod()
+    {
+        $this->assertSame('', (new NullAction())->type());
+        
+        $this->assertSame('foo', (new NullAction(type: 'foo'))->type());
+    }
+    
     public function testProcessedDataInfoMethod()
     {
         $action = new NullAction();

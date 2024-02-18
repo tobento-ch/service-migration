@@ -54,6 +54,13 @@ class FailTest extends TestCase
         $this->assertSame('foo', (new Fail('', description: 'foo'))->description());
     }
     
+    public function testTypeMethod()
+    {
+        $this->assertSame('', (new Fail(''))->type());
+        
+        $this->assertSame('foo', (new Fail('', type: 'foo'))->type());
+    }
+    
     public function testProcessedDataInfoMethod()
     {
         $action = new Fail('');

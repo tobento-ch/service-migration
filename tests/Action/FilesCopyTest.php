@@ -121,6 +121,23 @@ class FilesCopyTest extends TestCase
         );
     }
     
+    public function testTypeMethod()
+    {
+        $action = new FilesCopy(
+            files: [
+                __DIR__.'/../src-tmp/config/' => [
+                    __DIR__.'/../src/config/blog-not-exist.php',
+                ],
+            ], 
+            type: 'foo',
+        );
+        
+        $this->assertSame(
+            'foo',
+            $action->type()
+        );
+    }
+    
     public function testProcessedDataInfoMethod()
     {
         $action = new FilesCopy(

@@ -59,6 +59,13 @@ class CallableActionTest extends TestCase
         $this->assertSame('foo', (new CallableAction(function () {}, description: 'foo'))->description());
     }
     
+    public function testTypeMethod()
+    {
+        $this->assertSame('', (new CallableAction(function () {}))->type());
+        
+        $this->assertSame('foo', (new CallableAction(function () {}, type: 'foo'))->type());
+    }
+    
     public function testProcessedDataInfoMethod()
     {
         $action = new CallableAction(function () {});

@@ -87,6 +87,19 @@ class DirDeleteTest extends TestCase
         );
     }
     
+    public function testTypeMethod()
+    {
+        $action = new DirDelete(
+            dir: __DIR__.'/../src/dir-to-delete/',
+            type: 'foo'
+        );
+        
+        $this->assertSame(
+            'foo',
+            $action->type()
+        );
+    }
+    
     public function testProcessedDataInfoMethod()
     {
         $action = new DirDelete(

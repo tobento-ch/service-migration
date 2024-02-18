@@ -95,6 +95,20 @@ class FileStringReplacerTest extends TestCase
         );
     }
     
+    public function testTypeMethod()
+    {
+        $action = new FileStringReplacer(
+            file: __DIR__.'/../src/config/http.php',
+            replace: [],
+            type: 'foo',
+        );
+        
+        $this->assertSame(
+            'foo',
+            $action->type()
+        );
+    }
+    
     public function testProcessedDataInfoMethod()
     {
         $file = new File(__DIR__.'/../src/config/http.php');

@@ -65,6 +65,16 @@ class FailingAction implements ActionInterface
     }
     
     /**
+     * Returns the type of the action.
+     *
+     * @return string
+     */
+    public function type(): string
+    {
+        return '';
+    }
+    
+    /**
      * Returns the processed data information.
      *
      * @return array<array-key, string>
