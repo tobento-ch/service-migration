@@ -41,6 +41,13 @@ interface ActionInterface
     public function description(): string;
     
     /**
+     * Returns the type of the action.
+     *
+     * @return string
+     */
+    public function type(): string;
+    
+    /**
      * Returns the processed data information.
      *
      * @return array<array-key, string>

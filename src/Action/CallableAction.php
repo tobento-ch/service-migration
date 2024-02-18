@@ -33,12 +33,14 @@ class CallableAction implements ActionInterface
      * @param array $parameters Any parameters passed to the callable.
      * @param null|string $name A name of the action.
      * @param string $description A description of the action.
+     * @param string $type A type of the action.
      */
     public function __construct(
         callable $callable,
         protected array $parameters = [],
         protected null|string $name = null,
         protected string $description = '',
+        protected string $type = '',
     ) {
         $this->callable = $callable;
     }
@@ -72,6 +74,16 @@ class CallableAction implements ActionInterface
     public function description(): string
     {
         return $this->description;
+    }
+    
+    /**
+     * Returns the type of the action.
+     *
+     * @return string
+     */
+    public function type(): string
+    {
+        return $this->type;
     }
     
     /**

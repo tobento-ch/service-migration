@@ -34,11 +34,13 @@ class FilesDelete implements ActionInterface
      * @param array<mixed> $files The files ['src/destination/dir/' => ['file.jpg']]
      * @param null|string $name A name of the action.
      * @param string $description A description of the action.
+     * @param string $type A type of the action.
      */    
     public function __construct(
         protected array $files = [],
         protected null|string $name = null,
         protected string $description = '',
+        protected string $type = '',
     ) {}
         
     /**
@@ -94,6 +96,16 @@ class FilesDelete implements ActionInterface
     public function description(): string
     {
         return $this->description;
+    }
+    
+    /**
+     * Returns the type of the action.
+     *
+     * @return string
+     */
+    public function type(): string
+    {
+        return $this->type;
     }
     
     /**

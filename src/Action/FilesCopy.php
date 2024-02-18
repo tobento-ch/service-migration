@@ -40,12 +40,14 @@ class FilesCopy implements ActionInterface
      * @param bool $overwrite If to overwrite existing files.
      * @param null|string $name A name of the action.
      * @param string $description A description of the action.
+     * @param string $type A type of the action.
      */    
     public function __construct(
         protected array $files = [],
         protected bool $overwrite = true,
         protected null|string $name = null,
         protected string $description = '',
+        protected string $type = '',
     ) {}
         
     /**
@@ -120,6 +122,16 @@ class FilesCopy implements ActionInterface
     public function description(): string
     {
         return $this->description;
+    }
+    
+    /**
+     * Returns the type of the action.
+     *
+     * @return string
+     */
+    public function type(): string
+    {
+        return $this->type;
     }
     
     /**
