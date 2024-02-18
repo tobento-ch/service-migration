@@ -24,13 +24,13 @@ class MigrationUninstallException extends Exception
     /**
      * Create a new MigrationUninstallException
      *
-     * @param MigrationInterface $migration
+     * @param string|MigrationInterface $migration
      * @param string $message The message
      * @param int $code
      * @param null|Throwable $previous
      */
     public function __construct(
-        protected MigrationInterface $migration,
+        protected string|MigrationInterface $migration,
         string $message = '',
         int $code = 0,
         null|Throwable $previous = null
@@ -41,9 +41,9 @@ class MigrationUninstallException extends Exception
     /**
      * Get the migration.
      *
-     * @return MigrationInterface
+     * @return string|MigrationInterface
      */
-    public function migration(): MigrationInterface
+    public function migration(): string|MigrationInterface
     {
         return $this->migration;
     }     

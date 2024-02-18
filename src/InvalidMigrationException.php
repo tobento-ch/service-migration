@@ -24,13 +24,13 @@ class InvalidMigrationException extends Exception
     /**
      * Create a new InvalidMigrationException
      *
-     * @param string $migration The migration class name.
+     * @param string|object $migration The migration class name or object.
      * @param string $message The message
      * @param int $code
      * @param null|Throwable $previous
      */
     public function __construct(
-        protected string $migration,
+        protected string|object $migration,
         string $message = '',
         int $code = 0,
         null|Throwable $previous = null
@@ -41,9 +41,9 @@ class InvalidMigrationException extends Exception
     /**
      * Get the migration.
      *
-     * @return string
+     * @return string|object
      */
-    public function migration(): string
+    public function migration(): string|object
     {
         return $this->migration;
     }     
