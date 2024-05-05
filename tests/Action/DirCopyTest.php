@@ -69,6 +69,26 @@ class DirCopyTest extends TestCase
         
         $action->process();
     }
+    
+    public function testProcessMethodWithoutOverwritingDir()
+    {
+        $dir = new Dir();
+        $dir->delete(__DIR__.'/../src-tmp/');
+        $dir->create(__DIR__.'/../src-tmp/');
+        
+        $action = new DirCopy(
+            dir: __DIR__.'/../src/',
+            destDir: __DIR__.'/../src-tmp/',
+            overwrite: false,
+        );
+        
+        $action->process();
+        
+        $this->assertFalse($dir->has(__DIR__.'/../src-tmp/config'));
+        $this->assertSame('false', $action->processedDataInfo()['copied']);
+        
+        $dir->delete(__DIR__.'/../src-tmp/');
+    }
 
     public function testNameMethod()
     {
@@ -130,6 +150,7 @@ class DirCopyTest extends TestCase
             [
                 'dir' => __DIR__.'/../src/',
                 'destDir' => __DIR__.'/../src-tmp/',
+                'copied' => 'true',
             ],
             $action->processedDataInfo()
         );

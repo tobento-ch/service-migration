@@ -22,12 +22,18 @@ use Tobento\Service\Filesystem\File;
  * Copying directory to another destination.
  */
 class DirCopy implements ActionInterface
-{    
+{
+    /**
+     * @var bool
+     */
+    protected bool $skippedDir = false;
+    
     /**
      * Create a new DirCopy.
      *
      * @param string $dir The directory to copy.
      * @param string $destDir The destination directory.
+     * @param bool $overwrite If to overwrite existing dirs.
      * @param null|string $name A name of the action.
      * @param string $description A description of the action.
      * @param string $type A type of the action.
@@ -35,6 +41,7 @@ class DirCopy implements ActionInterface
     public function __construct(
         protected string $dir,
         protected string $destDir,
+        protected bool $overwrite = true,
         protected null|string $name = null,
         protected string $description = '',
         protected string $type = '',
@@ -49,10 +56,18 @@ class DirCopy implements ActionInterface
     public function process(): void
     {
         $dir = new Dir();
+        
+        if (
+            ! $this->overwrite
+            && $dir->has($this->destDir)
+        ) {
+            $this->skippedDir = true;
+            return;
+        }
+                
         $copied = $dir->copy($this->dir, $this->destDir);
         
-        if ($copied === false)
-        {
+        if ($copied === false) {
             throw new ActionFailedException(
                 $this,
                 'Copying ['.$this->dir.'] failed!'
@@ -100,6 +115,7 @@ class DirCopy implements ActionInterface
         return [
             'dir' => $this->getDir(),
             'destDir' => $this->getDestDir(),
+            'copied' => $this->skippedDir ? 'false' : 'true',
         ];
     }
     
