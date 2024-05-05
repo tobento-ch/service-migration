@@ -293,6 +293,7 @@ use Tobento\Service\Migration\Action\DirCopy;
 $action = new DirCopy(
     dir: 'dir/blog/views/',
     destDir: 'dir/to/store/views/blog/',
+    overwrite: true, // if to overwrite existing dir (default true)
     name: 'A unique name', // or null
     description: 'Blog view files installed.',
     type: 'keyword', // (optional)
