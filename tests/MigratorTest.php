@@ -81,6 +81,7 @@ class MigratorTest extends TestCase
     public function testInstallMethodThrowsMigrationInstallExceptionIfActionFails()
     {
         $this->expectException(MigrationInstallException::class);
+        $this->expectExceptionMessage('Migration install failed: Action [views install] failed!');
         
         $migrator = new Migrator(
             new AutowiringMigrationFactory(new Container()),
@@ -123,6 +124,7 @@ class MigratorTest extends TestCase
     public function testUninstallMethodThrowsMigrationUninstallExceptionIfActionFails()
     {
         $this->expectException(MigrationUninstallException::class);
+        $this->expectExceptionMessage('Migration uninstall failed: Action [views uninstall] failed!');
         
         $migrator = new Migrator(
             new AutowiringMigrationFactory(new Container()),
