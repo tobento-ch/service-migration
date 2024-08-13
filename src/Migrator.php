@@ -60,11 +60,10 @@ class Migrator implements MigratorInterface
             return $this->installed(new MigrationResult($migration, $actions, true));
             
         } catch (ActionFailedException $e) {
-
             throw new MigrationInstallException(
                 $migration,
-                'Migration install failed!',
-                0,
+                'Migration install failed: '.$e->getMessage(),
+                (int)$e->getCode(),
                 $e
             );
         }
@@ -89,11 +88,10 @@ class Migrator implements MigratorInterface
             return $this->uninstalled(new MigrationResult($migration, $actions, false));
             
         } catch (ActionFailedException $e) {
-            
             throw new MigrationUninstallException(
                 $migration,
-                'Migration uninstall failed!',
-                0,
+                'Migration uninstall failed: '.$e->getMessage(),
+                (int)$e->getCode(),
                 $e
             );
         }
