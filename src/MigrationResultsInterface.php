@@ -16,7 +16,7 @@ namespace Tobento\Service\Migration;
 use IteratorAggregate;
 
 /**
- * MigrationResultsInterface
+ * @extends IteratorAggregate<int, MigrationResultInterface>
  */
 interface MigrationResultsInterface extends IteratorAggregate
 {
