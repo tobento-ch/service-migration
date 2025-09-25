@@ -63,7 +63,7 @@ class Migrator implements MigratorInterface
             throw new MigrationInstallException(
                 $migration,
                 'Migration install failed: '.$e->getMessage(),
-                (int)$e->getCode(),
+                $e->getCode(),
                 $e
             );
         }
@@ -91,7 +91,7 @@ class Migrator implements MigratorInterface
             throw new MigrationUninstallException(
                 $migration,
                 'Migration uninstall failed: '.$e->getMessage(),
-                (int)$e->getCode(),
+                $e->getCode(),
                 $e
             );
         }
